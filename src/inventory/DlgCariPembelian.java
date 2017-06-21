@@ -39,6 +39,7 @@ public class DlgCariPembelian extends javax.swing.JDialog {
     private ResultSet rs,rs2;
     private double tagihan=0;
     private Jurnal jur=new Jurnal();
+    private riwayatobat Trackobat=new riwayatobat();
    
     /** Creates new form DlgProgramStudi
      * @param parent
@@ -48,7 +49,7 @@ public class DlgCariPembelian extends javax.swing.JDialog {
         initComponents();
 
         Object[] row={"Tgl.Beli","No.Faktur","Suplier","Petugas","Barang",
-                    "Satuan","Jml.Beli","Harga Beli(Rp)","SubTotal(Rp)",
+                    "Satuan","Jml","Harga Beli(Rp)","SubTotal(Rp)",
                     "Disk(%)","Bsr.Disk(Rp)","Total(Rp)"};
         tabMode=new DefaultTableModel(null,row){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
@@ -61,29 +62,29 @@ public class DlgCariPembelian extends javax.swing.JDialog {
         for (int i = 0; i < 12; i++) {
             TableColumn column = tbDokter.getColumnModel().getColumn(i);
             if(i==0){
-                column.setPreferredWidth(80);
+                column.setPreferredWidth(70);
             }else if(i==1){
                 column.setPreferredWidth(80);
             }else if(i==2){
-                column.setPreferredWidth(120);
+                column.setPreferredWidth(110);
             }else if(i==3){
-                column.setPreferredWidth(180);
+                column.setPreferredWidth(150);
             }else if(i==4){
-                column.setPreferredWidth(200);
+                column.setPreferredWidth(180);
             }else if(i==5){
-                column.setPreferredWidth(100);
+                column.setPreferredWidth(70);
             }else if(i==6){
-                column.setPreferredWidth(50);
+                column.setPreferredWidth(27);
             }else if(i==7){
-                column.setPreferredWidth(100);
+                column.setPreferredWidth(80);
             }else if(i==8){
-                column.setPreferredWidth(100);
+                column.setPreferredWidth(80);
             }else if(i==9){
                 column.setPreferredWidth(50);
             }else if(i==10){
-                column.setPreferredWidth(100);
+                column.setPreferredWidth(80);
             }else if(i==11){
-                column.setPreferredWidth(100);
+                column.setPreferredWidth(90);
             }
         }
         tbDokter.setDefaultRenderer(Object.class, new WarnaTable());
@@ -333,7 +334,7 @@ public class DlgCariPembelian extends javax.swing.JDialog {
 
         jPopupMenu1.setName("jPopupMenu1"); // NOI18N
 
-        ppHapus.setBackground(new java.awt.Color(242, 242, 242));
+        ppHapus.setBackground(new java.awt.Color(255, 255, 255));
         ppHapus.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         ppHapus.setForeground(new java.awt.Color(60, 80, 50));
         ppHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
@@ -972,13 +973,14 @@ private void ppHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
             pscaribeli.setString(1,tbDokter.getValueAt(tbDokter.getSelectedRow(),1).toString());
             rs=pscaribeli.executeQuery();
             while(rs.next()){
-                psdetailbeli=koneksi.prepareStatement("select kode_brng,jumlah from detailbeli where no_faktur=? ");
+                psdetailbeli=koneksi.prepareStatement("select kode_brng,jumlah2 from detailbeli where no_faktur=? ");
                 try {            
                     psdetailbeli.setString(1,rs.getString(1));
                     rs2=psdetailbeli.executeQuery();
                     while(rs2.next()){
-                        Sequel.menyimpan("gudangbarang","'"+rs2.getString("kode_brng") +"','"+rs.getString("kd_bangsal") +"','-"+rs2.getString("jumlah") +"'", 
-                                               "stok=stok-'"+rs2.getString("jumlah") +"'","kode_brng='"+rs2.getString("kode_brng")+"' and kd_bangsal='"+rs.getString("kd_bangsal") +"'");
+                        Trackobat.catatRiwayat(rs2.getString("kode_brng"),0,rs2.getDouble("jumlah2"),"Pengadaan",var.getkode(),rs.getString("kd_bangsal"),"Hapus");
+                        Sequel.menyimpan("gudangbarang","'"+rs2.getString("kode_brng") +"','"+rs.getString("kd_bangsal") +"','-"+rs2.getString("jumlah2") +"'", 
+                                               "stok=stok-'"+rs2.getString("jumlah2") +"'","kode_brng='"+rs2.getString("kode_brng")+"' and kd_bangsal='"+rs.getString("kd_bangsal") +"'");
                     }
                 } catch (Exception e) {
                     System.out.println(e);
@@ -1116,7 +1118,8 @@ private void ppHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
         try{     
             ps=koneksi.prepareStatement("select pembelian.tgl_beli,pembelian.no_faktur, "+
                     "pembelian.kode_suplier,datasuplier.nama_suplier, "+
-                    "pembelian.nip,petugas.nama,bangsal.nm_bangsal "+
+                    "pembelian.nip,petugas.nama,bangsal.nm_bangsal,pembelian.total1,"+
+                    "pembelian.potongan,pembelian.total2,pembelian.ppn,pembelian.tagihan "+
                     " from pembelian inner join datasuplier inner join petugas inner join bangsal  "+
                     " inner join detailbeli inner join databarang inner join kodesatuan inner join jenis "+
                     " inner join industrifarmasi on detailbeli.kode_brng=databarang.kode_brng "+
@@ -1307,9 +1310,9 @@ private void ppHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                                             Valid.SetAngka(rs2.getDouble(8)),Valid.SetAngka(rs2.getDouble(9)),Valid.SetAngka(rs2.getDouble(10))});
                             no++;
                         }
-                        tabMode.addRow(new Object[]{"","","","","","","","","","Total",":",Valid.SetAngka(Sequel.cariIsiAngka("select total2 from pembelian where no_faktur=?",rs.getString(2)))});
-                        tabMode.addRow(new Object[]{"","","","","","","","","","PPN",":",Valid.SetAngka(Sequel.cariIsiAngka("select ppn from pembelian where no_faktur=?",rs.getString(2)))});
-                        tabMode.addRow(new Object[]{"","","","","","","","","","Tagihan",":",Valid.SetAngka(Sequel.cariIsiAngka("select tagihan from pembelian where no_faktur=?",rs.getString(2)))});
+                        tabMode.addRow(new Object[]{"","","","","","Total",":","",Valid.SetAngka(rs.getDouble("total1")),"",Valid.SetAngka(rs.getDouble("potongan")),Valid.SetAngka(rs.getDouble("total2"))});
+                        tabMode.addRow(new Object[]{"","","","","","PPN",":","","","","",Valid.SetAngka(rs.getDouble("ppn"))});
+                        tabMode.addRow(new Object[]{"","","","","","Tagihan",":","","","","",Valid.SetAngka(rs.getDouble("tagihan"))});
                         tagihan=tagihan+Sequel.cariIsiAngka("select tagihan from pembelian where no_faktur=?",rs.getString(2));
                     } catch (Exception e) {
                         System.out.println("Notifikasi : "+e);

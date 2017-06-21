@@ -117,7 +117,7 @@ public class DlgBarang extends javax.swing.JDialog {
         for (i = 0; i < 24; i++) {
             TableColumn column = tbDokter.getColumnModel().getColumn(i);
             if (i == 0) {
-                column.setPreferredWidth(25);
+                column.setPreferredWidth(20);
             } else if (i == 1) {
                 column.setPreferredWidth(85);
             } else if (i == 2) {
@@ -170,7 +170,7 @@ public class DlgBarang extends javax.swing.JDialog {
 
         Kd.setDocument(new batasInput((byte) 15).getKata(Kd));
         Nm.setDocument(new batasInput((byte) 80).getKata(Nm));
-        kdsat.setDocument(new batasInput((byte) 3).getKata(kdsat));
+        kdsat.setDocument(new batasInput((byte) 4).getKata(kdsat));
         Letak.setDocument(new batasInput((byte) 50).getKata(Letak));
         beli.setDocument(new batasInput((byte) 15).getOnlyAngka(beli));
         ralan.setDocument(new batasInput((byte) 15).getOnlyAngka(ralan));
@@ -1229,9 +1229,8 @@ public class DlgBarang extends javax.swing.JDialog {
         FormInput.add(karyawan);
         karyawan.setBounds(660, 132, 110, 23);
 
-        DTPExpired.setEditable(false);
         DTPExpired.setForeground(new java.awt.Color(50, 70, 50));
-        DTPExpired.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-09-2016" }));
+        DTPExpired.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-02-2017" }));
         DTPExpired.setDisplayFormat("dd-MM-yyyy");
         DTPExpired.setName("DTPExpired"); // NOI18N
         DTPExpired.setOpaque(false);
@@ -2353,7 +2352,7 @@ private void KapasitasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                             rs.getString("nama_industri")
                         });
                     }
-                } catch (SQLException e) {
+                } catch (Exception e) {
                     System.out.println("Notifikasi : " + e);
                 }finally{
                     if(rs != null){

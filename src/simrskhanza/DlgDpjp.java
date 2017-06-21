@@ -86,7 +86,7 @@ public class DlgDpjp extends javax.swing.JDialog {
         for (i = 0; i < 7; i++) {
             TableColumn column = tbPasien.getColumnModel().getColumn(i);
             if(i==0){
-                column.setPreferredWidth(25);
+                column.setPreferredWidth(20);
             }else if(i==1){
                 column.setPreferredWidth(90);
             }else if(i==2){
@@ -127,7 +127,7 @@ public class DlgDpjp extends javax.swing.JDialog {
         for (i= 0; i < 3; i++) {
             TableColumn column = tbDiagnosa.getColumnModel().getColumn(i);
             if(i==0){
-                column.setPreferredWidth(25);
+                column.setPreferredWidth(20);
             }else if(i==1){
                 column.setPreferredWidth(80);
             }else if(i==2){
@@ -430,7 +430,7 @@ public class DlgDpjp extends javax.swing.JDialog {
 
         DTPCari1.setEditable(false);
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-08-2016" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "27-10-2016" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -444,7 +444,7 @@ public class DlgDpjp extends javax.swing.JDialog {
 
         DTPCari2.setEditable(false);
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-08-2016" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "27-10-2016" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);

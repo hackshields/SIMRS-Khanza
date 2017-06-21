@@ -1,5 +1,5 @@
 package inventory;
-import fungsi.WarnaTable;
+import fungsi.WarnaTable2;
 import fungsi.batasInput;
 import fungsi.koneksiDB;
 import fungsi.sekuel;
@@ -28,6 +28,7 @@ public class DlgPenjualan extends javax.swing.JDialog {
     private final DefaultTableModel tabMode;
     private sekuel Sequel=new sekuel();
     private validasi Valid=new validasi();
+    private riwayatobat Trackobat=new riwayatobat();
     private Jurnal jur=new Jurnal();
     private Connection koneksi=koneksiDB.condb();
     private Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
@@ -41,6 +42,7 @@ public class DlgPenjualan extends javax.swing.JDialog {
     private ResultSet rs,rsstok;
     private String[] kodebarang,namabarang,kategori,satuan;
     private double[] harga,jumlah,subtotal,diskon,besardiskon,totaljual,tambahan,stok;
+    private WarnaTable2 warna=new WarnaTable2();
 
     /** Creates new form DlgProgramStudi
      * @param parent
@@ -54,14 +56,14 @@ public class DlgPenjualan extends javax.swing.JDialog {
         tabMode=new DefaultTableModel(null,row){
             @Override public boolean isCellEditable(int rowIndex, int colIndex){
                 boolean a = false;
-                if ((colIndex==0)||(colIndex==5)||(colIndex==7)||(colIndex==8)||(colIndex==9)) {
+                if ((colIndex==0)||(colIndex==7)||(colIndex==8)||(colIndex==9)) {
                     a=true;
                 }
                 return a;
             }
             
             Class[] types = new Class[] {
-                java.lang.Double.class,java.lang.String.class,java.lang.String.class,java.lang.String.class,java.lang.String.class,
+                java.lang.String.class,java.lang.String.class,java.lang.String.class,java.lang.String.class,java.lang.String.class,
                 java.lang.Double.class,java.lang.Double.class,java.lang.Double.class,java.lang.Double.class,java.lang.Double.class,
                 java.lang.Double.class,java.lang.Double.class
             };
@@ -78,32 +80,33 @@ public class DlgPenjualan extends javax.swing.JDialog {
         for (i = 0; i < 12; i++) {
             TableColumn column = tbDokter.getColumnModel().getColumn(i);
             if(i==0){
-                column.setPreferredWidth(45);
+                column.setPreferredWidth(42);
             }else if(i==1){
-                column.setPreferredWidth(90);
+                column.setPreferredWidth(85);
             }else if(i==2){
-                column.setPreferredWidth(210);
+                column.setPreferredWidth(190);
             }else if(i==3){
-                column.setPreferredWidth(85);
+                column.setPreferredWidth(80);
             }else if(i==4){
-                column.setPreferredWidth(70);
-            }else if(i==5){
-                column.setPreferredWidth(85);
-            }else if(i==6){
-                column.setPreferredWidth(85);
-            }else if(i==7){
                 column.setPreferredWidth(50);
-            }else if(i==8){
-                column.setPreferredWidth(85);
-            }else if(i==9){
-                column.setPreferredWidth(85);
-            }else if(i==10){
-                column.setPreferredWidth(100);
-            }else if(i==11){
+            }else if(i==5){
+                column.setPreferredWidth(80);
+            }else if(i==6){
+                column.setPreferredWidth(80);
+            }else if(i==7){
                 column.setPreferredWidth(40);
+            }else if(i==8){
+                column.setPreferredWidth(80);
+            }else if(i==9){
+                column.setPreferredWidth(80);
+            }else if(i==10){
+                column.setPreferredWidth(85);
+            }else if(i==11){
+                column.setPreferredWidth(35);
             }
         }
-        tbDokter.setDefaultRenderer(Object.class, new WarnaTable());
+        warna.kolom=0;
+        tbDokter.setDefaultRenderer(Object.class,warna);
 
         NoNota.setDocument(new batasInput((byte)20).getKata(NoNota));
         kdmem.setDocument(new batasInput((byte)15).getKata(kdmem));
@@ -848,16 +851,24 @@ public class DlgPenjualan extends javax.swing.JDialog {
                 }
             }else if(evt.getKeyCode()==KeyEvent.VK_DELETE){
                 try {
-                    if(tbDokter.getSelectedColumn()==0){
-                        tbDokter.setValueAt(null, tbDokter.getSelectedRow(),0);
-                    }else if(tbDokter.getSelectedColumn()==5){
-                        tbDokter.setValueAt("", tbDokter.getSelectedRow(),5);
-                    }else if(tbDokter.getSelectedColumn()==7){
-                        tbDokter.setValueAt("", tbDokter.getSelectedRow(),7);
-                    }else if(tbDokter.getSelectedColumn()==8){
-                        tbDokter.setValueAt("", tbDokter.getSelectedRow(),8);
-                    }else if(tbDokter.getSelectedColumn()==9){
-                        tbDokter.setValueAt("", tbDokter.getSelectedRow(),9);
+                    switch (tbDokter.getSelectedColumn()) {
+                        case 0:
+                            tbDokter.setValueAt("", tbDokter.getSelectedRow(),0);
+                            break;
+                        case 5:
+                            tbDokter.setValueAt("", tbDokter.getSelectedRow(),5);
+                            break;
+                        case 7:
+                            tbDokter.setValueAt("", tbDokter.getSelectedRow(),7);
+                            break;
+                        case 8:
+                            tbDokter.setValueAt("", tbDokter.getSelectedRow(),8);
+                            break;
+                        case 9:
+                            tbDokter.setValueAt("", tbDokter.getSelectedRow(),9);
+                            break;
+                        default:
+                            break;
                     }
                 } catch (Exception e) {
                 } 
@@ -866,26 +877,29 @@ public class DlgPenjualan extends javax.swing.JDialog {
                 TCari.requestFocus();
             }else if(evt.getKeyCode()==KeyEvent.VK_BACK_SPACE){
                 try {
-                    if(tbDokter.getSelectedColumn()==0){
-                        if(tbDokter.getValueAt(tbDokter.getSelectedRow(),0).toString().equals("0")||tbDokter.getValueAt(tbDokter.getSelectedRow(),0).toString().equals("0.0")||tbDokter.getValueAt(tbDokter.getSelectedRow(),0).toString().equals("0,0")){
-                            tbDokter.setValueAt("", tbDokter.getSelectedRow(),0);
-                        }
-                    }else if(tbDokter.getSelectedColumn()==5){
-                        if(tbDokter.getValueAt(tbDokter.getSelectedRow(),5).toString().equals("0")||tbDokter.getValueAt(tbDokter.getSelectedRow(),5).toString().equals("0.0")||tbDokter.getValueAt(tbDokter.getSelectedRow(),5).toString().equals("0,0")){
-                            tbDokter.setValueAt("", tbDokter.getSelectedRow(),5);
-                        }
-                    }else if(tbDokter.getSelectedColumn()==7){
-                        if(tbDokter.getValueAt(tbDokter.getSelectedRow(),7).toString().equals("0")||tbDokter.getValueAt(tbDokter.getSelectedRow(),7).toString().equals("0.0")||tbDokter.getValueAt(tbDokter.getSelectedRow(),7).toString().equals("0,0")){
-                            tbDokter.setValueAt("", tbDokter.getSelectedRow(),7);
-                        }
-                    }else if(tbDokter.getSelectedColumn()==8){
-                        if(tbDokter.getValueAt(tbDokter.getSelectedRow(),8).toString().equals("0")||tbDokter.getValueAt(tbDokter.getSelectedRow(),8).toString().equals("0.0")||tbDokter.getValueAt(tbDokter.getSelectedRow(),8).toString().equals("0,0")){
-                            tbDokter.setValueAt("", tbDokter.getSelectedRow(),8);
-                        }
-                    }else if(tbDokter.getSelectedColumn()==9){
-                        if(tbDokter.getValueAt(tbDokter.getSelectedRow(),9).toString().equals("0")||tbDokter.getValueAt(tbDokter.getSelectedRow(),9).toString().equals("0.0")||tbDokter.getValueAt(tbDokter.getSelectedRow(),9).toString().equals("0,0")){
-                            tbDokter.setValueAt("", tbDokter.getSelectedRow(),9);
-                        }
+                    switch (tbDokter.getSelectedColumn()) {
+                        case 0:
+                            if(tbDokter.getValueAt(tbDokter.getSelectedRow(),0).toString().equals("0")||tbDokter.getValueAt(tbDokter.getSelectedRow(),0).toString().equals("0.0")||tbDokter.getValueAt(tbDokter.getSelectedRow(),0).toString().equals("0,0")){
+                                tbDokter.setValueAt("", tbDokter.getSelectedRow(),0);
+                            }   break;
+                        case 5:
+                            if(tbDokter.getValueAt(tbDokter.getSelectedRow(),5).toString().equals("0")||tbDokter.getValueAt(tbDokter.getSelectedRow(),5).toString().equals("0.0")||tbDokter.getValueAt(tbDokter.getSelectedRow(),5).toString().equals("0,0")){
+                                tbDokter.setValueAt("", tbDokter.getSelectedRow(),5);
+                            }   break;
+                        case 7:
+                            if(tbDokter.getValueAt(tbDokter.getSelectedRow(),7).toString().equals("0")||tbDokter.getValueAt(tbDokter.getSelectedRow(),7).toString().equals("0.0")||tbDokter.getValueAt(tbDokter.getSelectedRow(),7).toString().equals("0,0")){
+                                tbDokter.setValueAt("", tbDokter.getSelectedRow(),7);
+                            }   break;
+                        case 8:
+                            if(tbDokter.getValueAt(tbDokter.getSelectedRow(),8).toString().equals("0")||tbDokter.getValueAt(tbDokter.getSelectedRow(),8).toString().equals("0.0")||tbDokter.getValueAt(tbDokter.getSelectedRow(),8).toString().equals("0,0")){
+                                tbDokter.setValueAt("", tbDokter.getSelectedRow(),8);
+                            }   break;
+                        case 9:
+                            if(tbDokter.getValueAt(tbDokter.getSelectedRow(),9).toString().equals("0")||tbDokter.getValueAt(tbDokter.getSelectedRow(),9).toString().equals("0.0")||tbDokter.getValueAt(tbDokter.getSelectedRow(),9).toString().equals("0,0")){
+                                tbDokter.setValueAt("", tbDokter.getSelectedRow(),9);
+                            }   break;
+                        default:
+                            break;
                     }
                 } catch (Exception e) {
                 }       
@@ -904,7 +918,8 @@ public class DlgPenjualan extends javax.swing.JDialog {
 }//GEN-LAST:event_BtnCariActionPerformed
 
     private void BtnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnKeluarActionPerformed
-            dispose();  
+        carijual.dispose();
+        dispose();  
 }//GEN-LAST:event_BtnKeluarActionPerformed
 
     private void BtnKeluarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnKeluarKeyPressed
@@ -951,7 +966,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
                         for(i=0;i<row;i++){  
                             try {
                                 if(Valid.SetAngka(tabMode.getValueAt(i,0).toString())>0){
-                                   Sequel.menyimpan("detailjual","'"+NoNota.getText()+"','"+
+                                   if(Sequel.menyimpantf("detailjual","'"+NoNota.getText()+"','"+
                                            tabMode.getValueAt(i,1).toString()+"','"+
                                            tabMode.getValueAt(i,4).toString()+"','"+
                                            tabMode.getValueAt(i,5).toString()+"','"+
@@ -961,10 +976,12 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
                                            tabMode.getValueAt(i,7).toString()+"','"+
                                            tabMode.getValueAt(i,8).toString()+"','"+
                                            tabMode.getValueAt(i,9).toString()+"','"+
-                                           tabMode.getValueAt(i,10).toString()+"'","Transaksi Penjualan"); 
-                                   if(verifikasi_penjualan_di_kasir.equals("No")){
-                                        Sequel.menyimpan("gudangbarang","'"+tabMode.getValueAt(i,1).toString()+"','"+kdgudang.getText()+"','-"+tabMode.getValueAt(i,0).toString()+"'", 
-                                            "stok=stok-'"+tabMode.getValueAt(i,0).toString()+"'","kode_brng='"+tabMode.getValueAt(i,1).toString()+"' and kd_bangsal='"+kdgudang.getText()+"'");   
+                                           tabMode.getValueAt(i,10).toString()+"'","Transaksi Penjualan")==true){
+                                        if(verifikasi_penjualan_di_kasir.equals("No")){
+                                            Trackobat.catatRiwayat(tabMode.getValueAt(i,1).toString(),0,Valid.SetAngka(tabMode.getValueAt(i,0).toString()),"Penjualan",var.getkode(),kdgudang.getText(),"Simpan");
+                                            Sequel.menyimpan("gudangbarang","'"+tabMode.getValueAt(i,1).toString()+"','"+kdgudang.getText()+"','-"+tabMode.getValueAt(i,0).toString()+"'", 
+                                                 "stok=stok-'"+tabMode.getValueAt(i,0).toString()+"'","kode_brng='"+tabMode.getValueAt(i,1).toString()+"' and kd_bangsal='"+kdgudang.getText()+"'");   
+                                        }                                       
                                    }                                    
                                 }
                             } catch (Exception e) {
@@ -991,7 +1008,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
                             } catch (Exception e) {
                             }
 
-                            tabMode.setValueAt(null,r,0);
+                            tabMode.setValueAt("",r,0);
                             tabMode.setValueAt(0,r,6);
                             tabMode.setValueAt(0,r,7);
                             tabMode.setValueAt(0,r,8);  
@@ -1006,7 +1023,9 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
                         ppn=0;     
                         LTotal.setText("0");
                         Bayar.setText("0");
-                }
+                }else{
+                    JOptionPane.showMessageDialog(rootPane, "Gagal Menyimpan, kemungkinan No.Nota sudah ada sebelumnya...!!");
+                } 
             }
         }
     }//GEN-LAST:event_BtnSimpanActionPerformed
@@ -1101,30 +1120,44 @@ private void NoNotaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_No
 }//GEN-LAST:event_NoNotaKeyPressed
 
 private void kdmemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kdmemKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_PAGE_DOWN){
-            Sequel.cariIsi("select nm_pasien from pasien where no_rkm_medis=?", nmmem,kdmem.getText());         
-        }else if(evt.getKeyCode()==KeyEvent.VK_PAGE_UP){
-            Sequel.cariIsi("select nm_pasien from pasien where no_rkm_medis=?", nmmem,kdmem.getText());
-            Tgl.requestFocus();
-        }else if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            Sequel.cariIsi("select nm_pasien from pasien where no_rkm_medis=?", nmmem,kdmem.getText());
-            catatan.requestFocus();   
-        }else if(evt.getKeyCode()==KeyEvent.VK_UP){
-            BtnMemActionPerformed(null);
+        switch (evt.getKeyCode()) {
+            case KeyEvent.VK_PAGE_DOWN:
+                Sequel.cariIsi("select nm_pasien from pasien where no_rkm_medis=?", nmmem,kdmem.getText());
+                break;
+            case KeyEvent.VK_PAGE_UP:
+                Sequel.cariIsi("select nm_pasien from pasien where no_rkm_medis=?", nmmem,kdmem.getText());
+                Tgl.requestFocus();
+                break;
+            case KeyEvent.VK_ENTER:
+                Sequel.cariIsi("select nm_pasien from pasien where no_rkm_medis=?", nmmem,kdmem.getText());
+                catatan.requestFocus();
+                break;
+            case KeyEvent.VK_UP:
+                BtnMemActionPerformed(null);
+                break;
+            default:
+                break;
         }
 }//GEN-LAST:event_kdmemKeyPressed
 
 private void kdptgKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kdptgKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_PAGE_DOWN){
-            Sequel.cariIsi("select nama from petugas where nip=?", nmptg,kdptg.getText());          
-        }else if(evt.getKeyCode()==KeyEvent.VK_PAGE_UP){
-            Sequel.cariIsi("select nama from petugas where nip=?", nmptg,kdptg.getText());
-            Jenisjual.requestFocus();
-        }else if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            Sequel.cariIsi("select nama from petugas where nip=?", nmptg,kdptg.getText());
-            TCari.requestFocus();  
-        }else if(evt.getKeyCode()==KeyEvent.VK_UP){
-            BtnPtgActionPerformed(null);
+        switch (evt.getKeyCode()) {
+            case KeyEvent.VK_PAGE_DOWN:
+                Sequel.cariIsi("select nama from petugas where nip=?", nmptg,kdptg.getText());
+                break;
+            case KeyEvent.VK_PAGE_UP:
+                Sequel.cariIsi("select nama from petugas where nip=?", nmptg,kdptg.getText());
+                Jenisjual.requestFocus();
+                break;
+            case KeyEvent.VK_ENTER:
+                Sequel.cariIsi("select nama from petugas where nip=?", nmptg,kdptg.getText());
+                TCari.requestFocus();
+                break;
+            case KeyEvent.VK_UP:
+                BtnPtgActionPerformed(null);
+                break;
+            default:
+                break;
         }
 }//GEN-LAST:event_kdptgKeyPressed
 
@@ -1167,7 +1200,7 @@ private void TglKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TglKe
 private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppBersihkanActionPerformed
             int row2=tabMode.getRowCount();
             for(int r=0;r<row2;r++){ 
-                tabMode.setValueAt(null,r,0);
+                tabMode.setValueAt("",r,0);
                 tabMode.setValueAt(0,r,6);
                 tabMode.setValueAt(0,r,7);
                 tabMode.setValueAt(0,r,8);
@@ -1178,20 +1211,27 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 }//GEN-LAST:event_ppBersihkanActionPerformed
 
 private void kdgudangKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kdgudangKeyPressed
-    if(evt.getKeyCode()==KeyEvent.VK_PAGE_DOWN){
-        Sequel.cariIsi("select bangsal.nm_bangsal from bangsal where bangsal.kd_bangsal=?",nmgudang,kdgudang.getText());
-        tampil();
-    }else if(evt.getKeyCode()==KeyEvent.VK_PAGE_UP){
-        Sequel.cariIsi("select bangsal.nm_bangsal from bangsal where bangsal.kd_bangsal=?",nmgudang,kdgudang.getText());
-        tampil();
-        kdptg.requestFocus();
-    }else if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-        Sequel.cariIsi("select bangsal.nm_bangsal from bangsal where bangsal.kd_bangsal=?",nmgudang,kdgudang.getText());
-        tampil();
-        BtnSimpan.requestFocus();
-    }else if(evt.getKeyCode()==KeyEvent.VK_UP){
-        BtnGudangActionPerformed(null);
-    }
+        switch (evt.getKeyCode()) {
+            case KeyEvent.VK_PAGE_DOWN:
+                Sequel.cariIsi("select bangsal.nm_bangsal from bangsal where bangsal.kd_bangsal=?",nmgudang,kdgudang.getText());
+                tampil();
+                break;
+            case KeyEvent.VK_PAGE_UP:
+                Sequel.cariIsi("select bangsal.nm_bangsal from bangsal where bangsal.kd_bangsal=?",nmgudang,kdgudang.getText());
+                tampil();
+                kdptg.requestFocus();
+                break;
+            case KeyEvent.VK_ENTER:
+                Sequel.cariIsi("select bangsal.nm_bangsal from bangsal where bangsal.kd_bangsal=?",nmgudang,kdgudang.getText());
+                tampil();
+                BtnSimpan.requestFocus();
+                break;
+            case KeyEvent.VK_UP:
+                BtnGudangActionPerformed(null);
+                break;
+            default:
+                break;
+        }
 }//GEN-LAST:event_kdgudangKeyPressed
 
 private void BtnGudangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGudangActionPerformed
@@ -1403,7 +1443,7 @@ private void BtnGudangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                 rs=ps.executeQuery();
                 if(Jenisjual.getSelectedItem().equals("Karyawan")){
                     while(rs.next()){                              
-                        tabMode.addRow(new Object[]{null,rs.getString("kode_brng"),
+                        tabMode.addRow(new Object[]{"",rs.getString("kode_brng"),
                                        rs.getString("nama_brng"),
                                        rs.getString("nama"),
                                        rs.getString("kode_sat"),
@@ -1411,7 +1451,7 @@ private void BtnGudangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                     } 
                 }else if(Jenisjual.getSelectedItem().equals("Jual Bebas")){
                     while(rs.next()){                              
-                        tabMode.addRow(new Object[]{null,rs.getString("kode_brng"),
+                        tabMode.addRow(new Object[]{"",rs.getString("kode_brng"),
                                        rs.getString("nama_brng"),
                                        rs.getString("nama"),
                                        rs.getString("kode_sat"),
@@ -1419,7 +1459,7 @@ private void BtnGudangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                     } 
                 }else if(Jenisjual.getSelectedItem().equals("Beli Luar")){
                     while(rs.next()){                              
-                        tabMode.addRow(new Object[]{null,rs.getString("kode_brng"),
+                        tabMode.addRow(new Object[]{"",rs.getString("kode_brng"),
                                        rs.getString("nama_brng"),
                                        rs.getString("nama"),
                                        rs.getString("kode_sat"),
@@ -1427,7 +1467,7 @@ private void BtnGudangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                     } 
                 }else if(Jenisjual.getSelectedItem().equals("Rawat Jalan")){
                     while(rs.next()){                              
-                        tabMode.addRow(new Object[]{null,rs.getString("kode_brng"),
+                        tabMode.addRow(new Object[]{"",rs.getString("kode_brng"),
                                        rs.getString("nama_brng"),
                                        rs.getString("nama"),
                                        rs.getString("kode_sat"),
@@ -1435,7 +1475,7 @@ private void BtnGudangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                     } 
                 }else if(Jenisjual.getSelectedItem().equals("Kelas 1")){
                     while(rs.next()){                              
-                        tabMode.addRow(new Object[]{null,rs.getString("kode_brng"),
+                        tabMode.addRow(new Object[]{"",rs.getString("kode_brng"),
                                        rs.getString("nama_brng"),
                                        rs.getString("nama"),
                                        rs.getString("kode_sat"),
@@ -1443,7 +1483,7 @@ private void BtnGudangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                     } 
                 }else if(Jenisjual.getSelectedItem().equals("Kelas 2")){
                     while(rs.next()){                              
-                        tabMode.addRow(new Object[]{null,rs.getString("kode_brng"),
+                        tabMode.addRow(new Object[]{"",rs.getString("kode_brng"),
                                        rs.getString("nama_brng"),
                                        rs.getString("nama"),
                                        rs.getString("kode_sat"),
@@ -1451,7 +1491,7 @@ private void BtnGudangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                     } 
                 }else if(Jenisjual.getSelectedItem().equals("Kelas 3")){
                     while(rs.next()){                              
-                        tabMode.addRow(new Object[]{null,rs.getString("kode_brng"),
+                        tabMode.addRow(new Object[]{"",rs.getString("kode_brng"),
                                        rs.getString("nama_brng"),
                                        rs.getString("nama"),
                                        rs.getString("kode_sat"),
@@ -1459,7 +1499,7 @@ private void BtnGudangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                     } 
                 }else if(Jenisjual.getSelectedItem().equals("Utama/BPJS")){
                     while(rs.next()){                              
-                        tabMode.addRow(new Object[]{null,rs.getString("kode_brng"),
+                        tabMode.addRow(new Object[]{"",rs.getString("kode_brng"),
                                        rs.getString("nama_brng"),
                                        rs.getString("nama"),
                                        rs.getString("kode_sat"),
@@ -1467,7 +1507,7 @@ private void BtnGudangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                     } 
                 }else if(Jenisjual.getSelectedItem().equals("VIP")){
                     while(rs.next()){                              
-                        tabMode.addRow(new Object[]{null,rs.getString("kode_brng"),
+                        tabMode.addRow(new Object[]{"",rs.getString("kode_brng"),
                                        rs.getString("nama_brng"),
                                        rs.getString("nama"),
                                        rs.getString("kode_sat"),
@@ -1475,7 +1515,7 @@ private void BtnGudangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                     } 
                 }else if(Jenisjual.getSelectedItem().equals("VVIP")){
                     while(rs.next()){                              
-                        tabMode.addRow(new Object[]{null,rs.getString("kode_brng"),
+                        tabMode.addRow(new Object[]{"",rs.getString("kode_brng"),
                                        rs.getString("nama_brng"),
                                        rs.getString("nama"),
                                        rs.getString("kode_sat"),
@@ -1538,7 +1578,7 @@ private void BtnGudangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                             }
                             if(stokbarang<y){
                                 JOptionPane.showMessageDialog(rootPane,"Maaf stok tidak mencukupi..!!");
-                                tbDokter.setValueAt(null,row,0);
+                                tbDokter.setValueAt("",row,0);
                             }
                         } catch (Exception e) {
                             tbDokter.setValueAt(0,row,11);

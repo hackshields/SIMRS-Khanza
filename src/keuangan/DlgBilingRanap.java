@@ -368,7 +368,7 @@ public class DlgBilingRanap extends javax.swing.JDialog {
         tbUbahLama.setDefaultRenderer(Object.class, new WarnaTable());
 
         TNoRw.setDocument(new batasInput((byte)17).getKata(TNoRw));
-        TBayar.setDocument(new batasInput((byte)17).getOnlyAngka(TBayar));
+        TBayar.setDocument(new batasInput((byte)17).getKata(TBayar));
         
         TBayar.getDocument().addDocumentListener(new javax.swing.event.DocumentListener(){
             @Override
@@ -716,7 +716,7 @@ public class DlgBilingRanap extends javax.swing.JDialog {
                                            " detail_periksa_lab.no_rawat=? "+
                                            " and detail_periksa_lab.kd_jenis_prw=? ");                                                
             
-            psrekening=koneksi.prepareStatement("select * from set_akun");
+            psrekening=koneksi.prepareStatement("select * from set_akun_ranap");
             try {
                 rsrekening=psrekening.executeQuery();
                 if(rsrekening.next()){
@@ -2516,7 +2516,7 @@ private void tbBillingKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                         isRawat();
                                     }else{
                                         try{
-                                            if(Double.parseDouble(tbBilling.getValueAt(tbBilling.getSelectedRow(),6).toString())>0){
+                                            if(Double.parseDouble(tbBilling.getValueAt(tbBilling.getSelectedRow(),6).toString())!=0){
                                                 Sequel.queryu2("delete from temporary_tambahan_potongan where no_rawat=? and nama_tambahan=? and status=?",3,new String[]{
                                                     TNoRw.getText(),tbBilling.getValueAt(tbBilling.getSelectedRow(),2).toString(),tbBilling.getValueAt(tbBilling.getSelectedRow(),8).toString()
                                                 });
@@ -2727,7 +2727,7 @@ private void MnHapusTagihanActionPerformed(java.awt.event.ActionEvent evt) {//GE
             Sequel.AutoComitFalse();
             Valid.hapusTable(tabModeRwJlDr,TNoRw,"billing","no_rawat");  
             Valid.hapusTable(tabModeRwJlDr,TNoRw,"tagihan_sadewa","no_nota");  
-            Valid.editTable(tabModeRwJlDr,"reg_periksa","no_rawat",TNoRw,"stts='Belum'");
+            Valid.editTable(tabModeRwJlDr,"reg_periksa","no_rawat",TNoRw,"stts='Sudah'");
             uangmuka=0;sisapiutang=0;
             if(!TBayar.getText().trim().equals("")){
                uangmuka=Double.parseDouble(TBayar.getText());
@@ -3123,7 +3123,21 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         psnota.setString(5,Sequel.cariIsi("select kd_rek from akun_bayar where nama_bayar=?",CmbAkun.getSelectedItem().toString()));
                         psnota.executeUpdate();
                     } catch (Exception e) {
-                        System.out.println("Notifikasi Nota 1 : "+e);
+                        Sequel.meghapus("nota_inap","no_rawat",TNoRw.getText());               
+                        tbBilling.setValueAt(": "+Valid.autoNomer3("select ifnull(MAX(CONVERT(RIGHT(no_nota,6),signed)),0) from nota_inap where left(tanggal,7)='"+Valid.SetTgl(DTPTgl.getSelectedItem()+"").substring(0,7)+"' ",Valid.SetTgl(DTPTgl.getSelectedItem()+"").substring(0,7).replaceAll("-","/")+"/RI/",6),0,2);
+                        psnota=koneksi.prepareStatement(sqlpsnota);
+                        try {
+                            psnota.setString(1,TNoRw.getText());
+                            psnota.setString(2,Valid.autoNomer3("select ifnull(MAX(CONVERT(RIGHT(no_nota,6),signed)),0) from nota_inap where left(tanggal,7)='"+Valid.SetTgl(DTPTgl.getSelectedItem()+"").substring(0,7)+"' ",Valid.SetTgl(DTPTgl.getSelectedItem()+"").substring(0,7).replaceAll("-","/")+"/RI/",6));
+                            psnota.setString(3,Valid.SetTgl(DTPTgl.getSelectedItem()+""));
+                            psnota.setString(4,DTPTgl.getSelectedItem().toString().substring(11,19));
+                            psnota.setString(5,Sequel.cariIsi("select kd_rek from akun_bayar where nama_bayar=?",CmbAkun.getSelectedItem().toString()));
+                            psnota.executeUpdate();
+                        }  catch (Exception ex) {
+                            System.out.println("Notifikasi Nota 2 : "+ex);
+                        } finally{
+                            psnota.close();
+                        }
                     } finally{
                         psnota.close();
                     }

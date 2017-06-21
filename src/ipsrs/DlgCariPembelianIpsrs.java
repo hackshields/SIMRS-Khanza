@@ -66,25 +66,25 @@ public class DlgCariPembelianIpsrs extends javax.swing.JDialog {
             }else if(i==1){
                 column.setPreferredWidth(80);
             }else if(i==2){
-                column.setPreferredWidth(120);
+                column.setPreferredWidth(110);
             }else if(i==3){
-                column.setPreferredWidth(170);
+                column.setPreferredWidth(150);
             }else if(i==4){
-                column.setPreferredWidth(200);
+                column.setPreferredWidth(180);
             }else if(i==5){
-                column.setPreferredWidth(90);
+                column.setPreferredWidth(70);
             }else if(i==6){
-                column.setPreferredWidth(40);
+                column.setPreferredWidth(27);
             }else if(i==7){
-                column.setPreferredWidth(90);
+                column.setPreferredWidth(80);
             }else if(i==8){
-                column.setPreferredWidth(90);
+                column.setPreferredWidth(80);
             }else if(i==9){
-                column.setPreferredWidth(40);
+                column.setPreferredWidth(50);
             }else if(i==10){
-                column.setPreferredWidth(90);
+                column.setPreferredWidth(80);
             }else if(i==11){
-                column.setPreferredWidth(100);
+                column.setPreferredWidth(90);
             }
         }
         tbDokter.setDefaultRenderer(Object.class, new WarnaTable());
@@ -236,25 +236,25 @@ public class DlgCariPembelianIpsrs extends javax.swing.JDialog {
         
         try {
             ps=koneksi.prepareStatement("select ipsrspembelian.tgl_beli,ipsrspembelian.no_faktur, "+
-                    "ipsrspembelian.kode_suplier,datasuplier.nama_suplier, "+
-                    "ipsrspembelian.nip,petugas.nama,ipsrspembelian.subtotal,ipsrspembelian.potongan,ipsrspembelian.total "+
-                    " from ipsrspembelian inner join datasuplier inner join petugas inner join kodesatuan  "+
+                    "ipsrspembelian.kode_suplier,ipsrssuplier.nama_suplier, "+
+                    "ipsrspembelian.nip,petugas.nama,ipsrspembelian.subtotal,ipsrspembelian.potongan,ipsrspembelian.total, "+
+                    "ipsrspembelian.ppn,ipsrspembelian.tagihan from ipsrspembelian inner join ipsrssuplier inner join petugas inner join kodesatuan  "+
                     " inner join ipsrsdetailbeli inner join ipsrsbarang "+
                     " on ipsrsdetailbeli.kode_brng=ipsrsbarang.kode_brng "+
                     " and ipsrsbarang.kode_sat=kodesatuan.kode_sat "+
                     " and ipsrspembelian.no_faktur=ipsrsdetailbeli.no_faktur "+
-                    " and ipsrspembelian.kode_suplier=datasuplier.kode_suplier "+
+                    " and ipsrspembelian.kode_suplier=ipsrssuplier.kode_suplier "+
                     " and ipsrspembelian.nip=petugas.nip"+
-                    " where ipsrspembelian.tgl_beli between ? and ? and ipsrspembelian.no_faktur like ? and datasuplier.nama_suplier like ? and petugas.nama like ?  and ipsrsbarang.jenis like ? and ipsrsbarang.nama_brng like ? and ipsrspembelian.no_faktur like ? or "+
-                    " ipsrspembelian.tgl_beli between ? and ? and ipsrspembelian.no_faktur like ? and datasuplier.nama_suplier like ? and petugas.nama like ?  and ipsrsbarang.jenis like ? and ipsrsbarang.nama_brng like ? and ipsrspembelian.kode_suplier like ? or "+
-                    " ipsrspembelian.tgl_beli between ? and ? and ipsrspembelian.no_faktur like ? and datasuplier.nama_suplier like ? and petugas.nama like ?  and ipsrsbarang.jenis like ? and ipsrsbarang.nama_brng like ? and datasuplier.nama_suplier like ? or "+
-                    " ipsrspembelian.tgl_beli between ? and ? and ipsrspembelian.no_faktur like ? and datasuplier.nama_suplier like ? and petugas.nama like ?  and ipsrsbarang.jenis like ? and ipsrsbarang.nama_brng like ? and ipsrspembelian.nip like ? or "+
-                    " ipsrspembelian.tgl_beli between ? and ? and ipsrspembelian.no_faktur like ? and datasuplier.nama_suplier like ? and petugas.nama like ?  and ipsrsbarang.jenis like ? and ipsrsbarang.nama_brng like ? and petugas.nama like ? or "+
-                    " ipsrspembelian.tgl_beli between ? and ? and ipsrspembelian.no_faktur like ? and datasuplier.nama_suplier like ? and petugas.nama like ?  and ipsrsbarang.jenis like ? and ipsrsbarang.nama_brng like ? and ipsrsbarang.jenis like ? or "+
-                    " ipsrspembelian.tgl_beli between ? and ? and ipsrspembelian.no_faktur like ? and datasuplier.nama_suplier like ? and petugas.nama like ?  and ipsrsbarang.jenis like ? and ipsrsbarang.nama_brng like ? and ipsrsdetailbeli.kode_brng like ? or "+
-                    " ipsrspembelian.tgl_beli between ? and ? and ipsrspembelian.no_faktur like ? and datasuplier.nama_suplier like ? and petugas.nama like ?  and ipsrsbarang.jenis like ? and ipsrsbarang.nama_brng like ? and ipsrsbarang.nama_brng like ? or "+
-                    " ipsrspembelian.tgl_beli between ? and ? and ipsrspembelian.no_faktur like ? and datasuplier.nama_suplier like ? and petugas.nama like ?  and ipsrsbarang.jenis like ? and ipsrsbarang.nama_brng like ? and ipsrsdetailbeli.kode_sat like ? or "+
-                    " ipsrspembelian.tgl_beli between ? and ? and ipsrspembelian.no_faktur like ? and datasuplier.nama_suplier like ? and petugas.nama like ?  and ipsrsbarang.jenis like ? and ipsrsbarang.nama_brng like ? and kodesatuan.satuan like ? "+
+                    " where ipsrspembelian.tgl_beli between ? and ? and ipsrspembelian.no_faktur like ? and ipsrssuplier.nama_suplier like ? and petugas.nama like ?  and ipsrsbarang.jenis like ? and ipsrsbarang.nama_brng like ? and ipsrspembelian.no_faktur like ? or "+
+                    " ipsrspembelian.tgl_beli between ? and ? and ipsrspembelian.no_faktur like ? and ipsrssuplier.nama_suplier like ? and petugas.nama like ?  and ipsrsbarang.jenis like ? and ipsrsbarang.nama_brng like ? and ipsrspembelian.kode_suplier like ? or "+
+                    " ipsrspembelian.tgl_beli between ? and ? and ipsrspembelian.no_faktur like ? and ipsrssuplier.nama_suplier like ? and petugas.nama like ?  and ipsrsbarang.jenis like ? and ipsrsbarang.nama_brng like ? and ipsrssuplier.nama_suplier like ? or "+
+                    " ipsrspembelian.tgl_beli between ? and ? and ipsrspembelian.no_faktur like ? and ipsrssuplier.nama_suplier like ? and petugas.nama like ?  and ipsrsbarang.jenis like ? and ipsrsbarang.nama_brng like ? and ipsrspembelian.nip like ? or "+
+                    " ipsrspembelian.tgl_beli between ? and ? and ipsrspembelian.no_faktur like ? and ipsrssuplier.nama_suplier like ? and petugas.nama like ?  and ipsrsbarang.jenis like ? and ipsrsbarang.nama_brng like ? and petugas.nama like ? or "+
+                    " ipsrspembelian.tgl_beli between ? and ? and ipsrspembelian.no_faktur like ? and ipsrssuplier.nama_suplier like ? and petugas.nama like ?  and ipsrsbarang.jenis like ? and ipsrsbarang.nama_brng like ? and ipsrsbarang.jenis like ? or "+
+                    " ipsrspembelian.tgl_beli between ? and ? and ipsrspembelian.no_faktur like ? and ipsrssuplier.nama_suplier like ? and petugas.nama like ?  and ipsrsbarang.jenis like ? and ipsrsbarang.nama_brng like ? and ipsrsdetailbeli.kode_brng like ? or "+
+                    " ipsrspembelian.tgl_beli between ? and ? and ipsrspembelian.no_faktur like ? and ipsrssuplier.nama_suplier like ? and petugas.nama like ?  and ipsrsbarang.jenis like ? and ipsrsbarang.nama_brng like ? and ipsrsbarang.nama_brng like ? or "+
+                    " ipsrspembelian.tgl_beli between ? and ? and ipsrspembelian.no_faktur like ? and ipsrssuplier.nama_suplier like ? and petugas.nama like ?  and ipsrsbarang.jenis like ? and ipsrsbarang.nama_brng like ? and ipsrsdetailbeli.kode_sat like ? or "+
+                    " ipsrspembelian.tgl_beli between ? and ? and ipsrspembelian.no_faktur like ? and ipsrssuplier.nama_suplier like ? and petugas.nama like ?  and ipsrsbarang.jenis like ? and ipsrsbarang.nama_brng like ? and kodesatuan.satuan like ? "+
                     " group by ipsrspembelian.no_faktur order by ipsrspembelian.tgl_beli,ipsrspembelian.no_faktur ");
             ps2=koneksi.prepareStatement("select ipsrsdetailbeli.kode_brng,ipsrsbarang.nama_brng, "+
                         "ipsrsdetailbeli.kode_sat,kodesatuan.satuan,ipsrsdetailbeli.jumlah,ipsrsdetailbeli.harga, "+
@@ -743,12 +743,12 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
 
     private void kdsupKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kdsupKeyPressed
         if(evt.getKeyCode()==KeyEvent.VK_PAGE_DOWN){
-            Sequel.cariIsi("select nama_suplier from datasuplier where kode_suplier=?", nmsup,kdsup.getText());            
+            Sequel.cariIsi("select nama_suplier from ipsrssuplier where kode_suplier=?", nmsup,kdsup.getText());            
         }else if(evt.getKeyCode()==KeyEvent.VK_PAGE_UP){
-            Sequel.cariIsi("select nama_suplier from datasuplier where kode_suplier=?", nmsup,kdsup.getText());
+            Sequel.cariIsi("select nama_suplier from ipsrssuplier where kode_suplier=?", nmsup,kdsup.getText());
             NoFaktur.requestFocus();
         }else if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            Sequel.cariIsi("select nama_suplier from datasuplier where kode_suplier=?", nmsup,kdsup.getText());
+            Sequel.cariIsi("select nama_suplier from ipsrssuplier where kode_suplier=?", nmsup,kdsup.getText());
             kdptg.requestFocus();
         }else if(evt.getKeyCode()==KeyEvent.VK_UP){
             btnSuplierActionPerformed(null);
@@ -1111,7 +1111,9 @@ private void ppHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                                     Valid.SetAngka(rs2.getDouble(8)),Valid.SetAngka(rs2.getDouble(9)),Valid.SetAngka(rs2.getDouble(10))});
                     no++;
                 }
-                tabMode.addRow(new Object[]{"","","","","Total ","","","",Valid.SetAngka(rs.getDouble("subtotal")),"",Valid.SetAngka(rs.getDouble("potongan")),Valid.SetAngka(rs.getDouble("total"))});
+                tabMode.addRow(new Object[]{"","","","","","Total",":","",Valid.SetAngka(rs.getDouble("subtotal")),"",Valid.SetAngka(rs.getDouble("potongan")),Valid.SetAngka(rs.getDouble("total"))});
+                tabMode.addRow(new Object[]{"","","","","","PPN",":","","","","",Valid.SetAngka(rs.getDouble("ppn"))});
+                tabMode.addRow(new Object[]{"","","","","","Tagihan",":","","","","",Valid.SetAngka(rs.getDouble("tagihan"))});
                 tagihan=tagihan+rs.getDouble("total");
             }                
             LTotal.setText(Valid.SetAngka(tagihan));

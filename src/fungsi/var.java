@@ -19,7 +19,7 @@ public final class var {
     private static PreparedStatement ps,ps2;
     private static ResultSet rs,rs2;
     
-    private static String kode="",kdbangsal="",namars="",alamatrs="",kabupatenrs="",propinsirs="",kontakrs="",emailrs="",form=""; 
+    private static String kode="",kdbangsal="",namars="",alamatrs="",kabupatenrs="",propinsirs="",kontakrs="",emailrs="",form="",namauser=""; 
     private static int jml1=0,jml2=0,lebar=0,tinggi=0;
     private static boolean admin=false,user=false,vakum=false,aplikasi=false,penyakit=false,obat_penyakit=false,dokter=false,jadwal_praktek=false,petugas=false,pasien=false,registrasi=false,
             tindakan_ralan=false,kamar_inap=false,tindakan_ranap=false,operasi=false,rujukan_keluar=false,rujukan_masuk=false,beri_obat=false,
@@ -50,7 +50,10 @@ public final class var {
             harian_paket_bhp=false,bulanan_paket_bhp=false,piutang_pasien2=false,bpjs_referensi_faskes=false,bpjs_sep=false,pengambilan_utd=false,tarif_utd=false,
             pengambilan_utd2=false,utd_medis_rusak=false,pengambilan_penunjang_utd=false,pengambilan_penunjang_utd2=false,utd_penunjang_rusak=false,
             suplier_penunjang=false,utd_donor=false,bpjs_monitoring_klaim=false,utd_cekal_darah=false,utd_komponen_darah=false,utd_stok_darah=false,
-            utd_pemisahan_darah=false,harian_kamar=false,rincian_piutang_pasien=false,keuntungan_beri_obat_nonpiutang=false;
+            utd_pemisahan_darah=false,harian_kamar=false,rincian_piutang_pasien=false,keuntungan_beri_obat_nonpiutang=false,reklasifikasi_ralan=false,
+            reklasifikasi_ranap=false,utd_penyerahan_darah=false,hutang_obat=false,riwayat_obat_alkes_bhp=false,sensus_harian_poli=false,rl4a=false,
+            aplicare_referensi_kamar=false,aplicare_ketersediaan_kamar=false,inacbg_klaim_baru_otomatis=false,inacbg_klaim_baru_manual=false,inacbg_coder_nik=false,
+            mutasi_berkas=false,akun_piutang=false,harian_kso=false,bulanan_kso=false,harian_menejemen=false,bulanan_menejemen=false,inhealth_cek_eligibilitas=false;
     
     public static void setData(String user, String pass) {
        try {                
@@ -70,7 +73,7 @@ public final class var {
                     var.jml1=rs.getRow();
                     var.jml2=rs2.getRow();               
 
-                    if(user.equals("admin") && pass.equals("akusayangsamakamu122456")){
+                    /*if(user.equals("admin") && pass.equals("akusayangsamakamu122456")){
                         var.kode="Admin Utama";
                         var.penyakit=true;
                         var.obat_penyakit=true;
@@ -276,7 +279,27 @@ public final class var {
                         var.harian_kamar=true;
                         var.rincian_piutang_pasien=true;
                         var.keuntungan_beri_obat_nonpiutang=true;
-                    }else if(rs.getRow()>=1){
+                        var.reklasifikasi_ralan=true;
+                        var.reklasifikasi_ranap=true;
+                        var.utd_penyerahan_darah=true;
+                        var.hutang_obat=true;
+                        var.riwayat_obat_alkes_bhp=true;
+                        var.sensus_harian_poli=true;
+                        var.rl4a=true;
+                        var.aplicare_referensi_kamar=true;
+                        var.aplicare_ketersediaan_kamar=true;
+                        var.inacbg_klaim_baru_otomatis=true;
+                        var.inacbg_klaim_baru_manual=true;
+                        var.inacbg_coder_nik=true;
+                        var.mutasi_berkas=true;
+                        var.akun_piutang=true;
+                        var.harian_kso=true;
+                        var.bulanan_kso=true;
+                        var.harian_menejemen=true;
+                        var.bulanan_menejemen=true;
+                        var.inhealth_cek_eligibilitas=true;
+                    }else */
+                    if(rs.getRow()>=1){
                         var.kode="Admin Utama";
                         var.penyakit=true;
                         var.obat_penyakit=true;
@@ -482,6 +505,25 @@ public final class var {
                         var.harian_kamar=true;
                         var.rincian_piutang_pasien=true;
                         var.keuntungan_beri_obat_nonpiutang=true;
+                        var.reklasifikasi_ralan=true;
+                        var.reklasifikasi_ranap=true;
+                        var.utd_penyerahan_darah=true;
+                        var.hutang_obat=true;
+                        var.riwayat_obat_alkes_bhp=true;
+                        var.sensus_harian_poli=true;
+                        var.rl4a=true;
+                        var.aplicare_referensi_kamar=true;
+                        var.aplicare_ketersediaan_kamar=true;
+                        var.inacbg_klaim_baru_otomatis=true;
+                        var.inacbg_klaim_baru_manual=true;
+                        var.inacbg_coder_nik=true;
+                        var.mutasi_berkas=true;
+                        var.akun_piutang=true;
+                        var.harian_kso=true;
+                        var.bulanan_kso=true;
+                        var.harian_menejemen=true;
+                        var.bulanan_menejemen=true;
+                        var.inhealth_cek_eligibilitas=true;
                     }else if(rs2.getRow()>=1){   
                         rs2.beforeFirst();
                         rs2.next();
@@ -690,6 +732,25 @@ public final class var {
                         var.harian_kamar=rs2.getBoolean("harian_kamar");
                         var.rincian_piutang_pasien=rs2.getBoolean("rincian_piutang_pasien");
                         var.keuntungan_beri_obat_nonpiutang=rs2.getBoolean("keuntungan_beri_obat_nonpiutang");
+                        var.reklasifikasi_ralan=rs2.getBoolean("reklasifikasi_ralan");
+                        var.reklasifikasi_ranap=rs2.getBoolean("reklasifikasi_ranap");
+                        var.utd_penyerahan_darah=rs2.getBoolean("utd_penyerahan_darah");
+                        var.hutang_obat=rs2.getBoolean("hutang_obat");
+                        var.riwayat_obat_alkes_bhp=rs2.getBoolean("riwayat_obat_alkes_bhp");
+                        var.sensus_harian_poli=rs2.getBoolean("sensus_harian_poli");
+                        var.rl4a=rs2.getBoolean("rl4a");
+                        var.aplicare_referensi_kamar=rs2.getBoolean("aplicare_referensi_kamar");
+                        var.aplicare_ketersediaan_kamar=rs2.getBoolean("aplicare_ketersediaan_kamar");
+                        var.inacbg_klaim_baru_otomatis=rs2.getBoolean("inacbg_klaim_baru_otomatis");
+                        var.inacbg_klaim_baru_manual=rs2.getBoolean("inacbg_klaim_baru_manual");
+                        var.inacbg_coder_nik=rs2.getBoolean("inacbg_coder_nik");
+                        var.mutasi_berkas=rs2.getBoolean("mutasi_berkas");
+                        var.akun_piutang=rs2.getBoolean("akun_piutang");
+                        var.harian_kso=rs2.getBoolean("harian_kso");
+                        var.bulanan_kso=rs2.getBoolean("bulanan_kso");                        
+                        var.harian_menejemen=rs2.getBoolean("harian_menejemen");
+                        var.bulanan_menejemen=rs2.getBoolean("bulanan_menejemen");
+                        var.inhealth_cek_eligibilitas=rs2.getBoolean("inhealth_cek_eligibilitas");
                     }else if((rs.getRow()==0)&&(rs2.getRow()==0)){
                         var.kode="";                  
                         var.penyakit= false;
@@ -896,6 +957,25 @@ public final class var {
                         var.harian_kamar=false;
                         var.rincian_piutang_pasien=false;
                         var.keuntungan_beri_obat_nonpiutang=false;
+                        var.reklasifikasi_ralan=false;
+                        var.reklasifikasi_ranap=false;
+                        var.utd_penyerahan_darah=false;
+                        var.hutang_obat=false;
+                        var.riwayat_obat_alkes_bhp=false;
+                        var.sensus_harian_poli=false;
+                        var.rl4a=false;
+                        var.aplicare_referensi_kamar=false;
+                        var.aplicare_ketersediaan_kamar=false;
+                        var.inacbg_klaim_baru_otomatis=false;
+                        var.inacbg_klaim_baru_manual=false;
+                        var.inacbg_coder_nik=false;
+                        var.mutasi_berkas=false;
+                        var.akun_piutang=false;
+                        var.harian_kso=false;
+                        var.bulanan_kso=false;                                    
+                        var.harian_menejemen=false;
+                        var.bulanan_menejemen=false;
+                        var.inhealth_cek_eligibilitas=false;
                     }
                 } catch (Exception e) {
                     System.out.println("Notifikasi : "+e);
@@ -964,6 +1044,7 @@ public final class var {
     public static boolean getpengadaan_obat(){return var.pengadaan_obat;} 
     public static boolean getpemesanan_obat(){return var.pemesanan_obat;} 
     public static boolean getpenjualan_obat(){return var.penjualan_obat;} 
+    public static void setpenjualan_obatfalse(){var.penjualan_obat=false;} 
     public static boolean getpiutang_obat(){return var.piutang_obat;} 
     public static boolean getretur_ke_suplier(){return var.retur_ke_suplier;} 
     public static boolean getretur_dari_pembeli(){return var.retur_dari_pembeli;} 
@@ -1045,6 +1126,8 @@ public final class var {
     public static String getkdbangsal(){return var.kdbangsal;}     
     public static void setform(String form){var.form=form;}
     public static String getform(){return var.form;}   
+    public static void setnamauser(String namauser){var.namauser=namauser;}
+    public static String getnamauser(){return var.namauser;}   
     public static void setstatus(boolean status){var.status=status;}
     public static boolean getstatus(){return var.status;}
     public static boolean getjm_ranap_dokter(){return var.jm_ranap_dokter;}     
@@ -1144,4 +1227,24 @@ public final class var {
     public static boolean getharian_kamar(){return var.harian_kamar;}  
     public static boolean getrincian_piutang_pasien(){return var.rincian_piutang_pasien;}  
     public static boolean getkeuntungan_beri_obat_nonpiutang(){return var.keuntungan_beri_obat_nonpiutang;}  
+    public static boolean getreklasifikasi_ralan(){return var.reklasifikasi_ralan;}  
+    public static boolean getreklasifikasi_ranap(){return var.reklasifikasi_ranap;}  
+    public static boolean getutd_penyerahan_darah(){return var.utd_penyerahan_darah;} 
+    public static void setutd_penyerahan_darahfalse(){var.utd_penyerahan_darah=false;} 
+    public static boolean gethutang_obat(){return var.hutang_obat;}  
+    public static boolean getriwayat_obat_alkes_bhp(){return var.riwayat_obat_alkes_bhp;}
+    public static boolean getsensus_harian_poli(){return var.sensus_harian_poli;}
+    public static boolean getrl4a(){return var.rl4a;}
+    public static boolean getaplicare_referensi_kamar(){return var.aplicare_referensi_kamar;}
+    public static boolean getaplicare_ketersediaan_kamar(){return var.aplicare_ketersediaan_kamar;}
+    public static boolean getinacbg_klaim_baru_otomatis(){return var.inacbg_klaim_baru_otomatis;}
+    public static boolean getinacbg_klaim_baru_manual(){return var.inacbg_klaim_baru_manual;}
+    public static boolean getinacbg_coder_nik(){return var.inacbg_coder_nik;}
+    public static boolean getmutasi_berkas(){return var.mutasi_berkas;}
+    public static boolean getakun_piutang(){return var.akun_piutang;}
+    public static boolean getharian_kso(){return var.harian_kso;}
+    public static boolean getbulanan_kso(){return var.bulanan_kso;}
+    public static boolean getharian_menejemen(){return var.harian_menejemen;}
+    public static boolean getbulanan_menejemen(){return var.bulanan_menejemen;}
+    public static boolean getinhealth_cek_eligibilitas(){return var.inhealth_cek_eligibilitas;}
 }

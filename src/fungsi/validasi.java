@@ -711,6 +711,14 @@ public final class validasi {
             kiri.requestFocus();
         }
     }
+    
+    public void pindah2(java.awt.event.KeyEvent evt,JTextField kiri,JComboBox kanan){
+        if(evt.getKeyCode()==KeyEvent.VK_PAGE_DOWN){
+            kanan.requestFocus();
+        }else if(evt.getKeyCode()==KeyEvent.VK_PAGE_UP){
+            kiri.requestFocus();
+        }
+    }
 
     public void pindah(java.awt.event.KeyEvent evt,JTextField kiri,JTextArea kanan) {
         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
@@ -861,16 +869,14 @@ public final class validasi {
             }else if (os.contains("mac")) {
                 rt.exec( "open " + "http://"+prop.getProperty("HOST")+"/"+prop.getProperty("HYBRIDWEB")+"/"+url);
             }else if (os.contains("nix") || os.contains("nux")) {
-                String[] browsers = {"epiphany", "firefox", "mozilla", "konqueror","chrome","chromium","netscape","opera","links","lynx","midori"};
+                String[] browsers = {"x-www-browser","epiphany", "firefox", "mozilla", "konqueror","chrome","chromium","netscape","opera","links","lynx","midori"};
                 // Build a command string which looks like "browser1 "url" || browser2 "url" ||..."
                 StringBuilder cmd = new StringBuilder();
                 for(i=0; i<browsers.length; i++) cmd.append(i==0  ? "" : " || ").append(browsers[i]).append(" \"").append("http://").append(prop.getProperty("HOST")).append("/").append(prop.getProperty("HYBRIDWEB")).append("/").append(url).append( "\" ");
                 rt.exec(new String[] { "sh", "-c", cmd.toString() });
-            } else {
-                return;
-            }
+            } 
         }catch (Exception e){
-            return;
+            System.out.println("Notif Browser : "+e);
         } 
     }
     
@@ -898,6 +904,15 @@ public final class validasi {
         s = "";
         try {
             s=original.substring(6,10)+"-"+original.substring(3,5)+"-"+original.substring(0,2);
+        }catch (Exception e) {
+        }   
+        return s;
+    }
+    
+    public String SetTgl3(String original){
+        s = "";
+        try {
+            s=original.substring(8,10)+"-"+original.substring(5,7)+"-"+original.substring(0,4);
         }catch (Exception e) {
         }   
         return s;

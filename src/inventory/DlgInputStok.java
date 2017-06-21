@@ -11,12 +11,14 @@
  */
 
 package inventory;
-import fungsi.WarnaTable;
+import fungsi.WarnaTable2;
 import fungsi.batasInput;
 import fungsi.koneksiDB;
 import fungsi.sekuel;
 import fungsi.validasi;
 import fungsi.var;
+import inventory.DlgStokOpname;
+import inventory.riwayatobat;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -39,6 +41,7 @@ public class DlgInputStok extends javax.swing.JDialog {
     private final DefaultTableModel tabMode;
     private sekuel Sequel=new sekuel();
     private validasi Valid=new validasi();
+    private riwayatobat Trackobat=new riwayatobat();
     private Connection koneksi=koneksiDB.condb();
     private Jurnal jur=new Jurnal();
     private PreparedStatement pstampil,psstok;
@@ -49,6 +52,7 @@ public class DlgInputStok extends javax.swing.JDialog {
     private int jml=0,i=0,index=0;
     private String[] real,kodebarang,namabarang,kategori,satuan;
     private double[] hargabeli,stok,selisih,nomihilang;
+    private WarnaTable2 warna=new WarnaTable2();
 
     /** Creates new form DlgProgramStudi
      * @param parent
@@ -92,26 +96,27 @@ public class DlgInputStok extends javax.swing.JDialog {
         for (i = 0; i < 9; i++) {
             TableColumn column = tbDokter.getColumnModel().getColumn(i);
             if(i==0){
-                column.setPreferredWidth(50);
+                column.setPreferredWidth(42);
             }else if(i==1){
                 column.setPreferredWidth(90);
             }else if(i==2){
-                column.setPreferredWidth(250);
+                column.setPreferredWidth(150);
             }else if(i==3){
                 column.setPreferredWidth(100);
             }else if(i==4){
-                column.setPreferredWidth(70);
+                column.setPreferredWidth(50);
             }else if(i==5){
-                column.setPreferredWidth(90);
+                column.setPreferredWidth(80);
             }else if(i==6){
-                column.setPreferredWidth(50);
+                column.setPreferredWidth(42);
             }else if(i==7){
-                column.setPreferredWidth(50);
+                column.setPreferredWidth(42);
             }else if(i==8){
-                column.setPreferredWidth(110);
+                column.setPreferredWidth(105);
             }
         }
-        tbDokter.setDefaultRenderer(Object.class, new WarnaTable());
+        warna.kolom=0;
+        tbDokter.setDefaultRenderer(Object.class,warna);
 
         kdgudang.setDocument(new batasInput((byte)5).getKata(kdgudang));
         catatan.setDocument(new batasInput((byte)60).getKata(catatan));  
@@ -319,7 +324,7 @@ public class DlgInputStok extends javax.swing.JDialog {
 
         label13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         label13.setName("label13"); // NOI18N
-        label13.setPreferredSize(new java.awt.Dimension(487, 26));
+        label13.setPreferredSize(new java.awt.Dimension(327, 26));
         panelisi1.add(label13);
 
         BtnCari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Search-16x16.png"))); // NOI18N
@@ -370,7 +375,7 @@ public class DlgInputStok extends javax.swing.JDialog {
         panelisi5.add(label9);
 
         TCari.setName("TCari"); // NOI18N
-        TCari.setPreferredSize(new java.awt.Dimension(400, 23));
+        TCari.setPreferredSize(new java.awt.Dimension(300, 23));
         TCari.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 TCariKeyPressed(evt);
@@ -428,7 +433,7 @@ public class DlgInputStok extends javax.swing.JDialog {
             }
         });
         panelisi3.add(catatan);
-        catatan.setBounds(114, 40, 688, 23);
+        catatan.setBounds(114, 40, 528, 23);
 
         label11.setText("Tanggal Opname :");
         label11.setName("label11"); // NOI18N
@@ -461,13 +466,13 @@ public class DlgInputStok extends javax.swing.JDialog {
             }
         });
         panelisi3.add(kdgudang);
-        kdgudang.setBounds(329, 10, 101, 23);
+        kdgudang.setBounds(329, 10, 80, 23);
 
         nmgudang.setEditable(false);
         nmgudang.setName("nmgudang"); // NOI18N
         nmgudang.setPreferredSize(new java.awt.Dimension(207, 23));
         panelisi3.add(nmgudang);
-        nmgudang.setBounds(432, 10, 340, 23);
+        nmgudang.setBounds(412, 10, 200, 23);
 
         BtnGudang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
         BtnGudang.setMnemonic('2');
@@ -480,7 +485,7 @@ public class DlgInputStok extends javax.swing.JDialog {
             }
         });
         panelisi3.add(BtnGudang);
-        BtnGudang.setBounds(774, 10, 28, 23);
+        BtnGudang.setBounds(614, 10, 28, 23);
 
         internalFrame1.add(panelisi3, java.awt.BorderLayout.PAGE_START);
 
@@ -530,7 +535,7 @@ public class DlgInputStok extends javax.swing.JDialog {
 
     private void BtnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCariActionPerformed
        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        DlgStokOpname opname=new DlgStokOpname(null,false);
+        DlgStokOpname opname=new DlgStokOpname(null,true);
         opname.isCek(); 
         opname.emptTeks();
         opname.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
@@ -574,12 +579,9 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
                                 if(Sequel.menyimpantf("opname","?,?,?,?,?,?,?,?","Stok Opname",8,new String[]{
                                         tbDokter.getValueAt(i,1).toString(),Valid.SetTgl(Tgl.getSelectedItem()+""),tbDokter.getValueAt(i,6).toString(),
                                         tbDokter.getValueAt(i,0).toString(),tbDokter.getValueAt(i,7).toString(),tbDokter.getValueAt(i,8).toString(),catatan.getText(),kdgudang.getText()})==true){
+                                    Trackobat.catatRiwayat(tbDokter.getValueAt(i,1).toString(),Valid.SetAngka(tbDokter.getValueAt(i,0).toString()),0,"Opname",var.getkode(),kdgudang.getText(),"Simpan");
                                     Sequel.menyimpan("gudangbarang","'"+tbDokter.getValueAt(i,1).toString()+"','"+kdgudang.getText()+"','"+tbDokter.getValueAt(i,0).toString()+"'", 
-                                                     "stok='"+tbDokter.getValueAt(i,0).toString()+"'","kode_brng='"+tbDokter.getValueAt(i,1).toString()+"' and kd_bangsal='"+kdgudang.getText()+"'");                                       
-                                }else{
-                                    Sequel.mengedit("gudangbarang","kode_brng=? and kd_bangsal=?","stok=?",3,new String[]{
-                                        tbDokter.getValueAt(i,6).toString(),tbDokter.getValueAt(i,1).toString(),kdgudang.getText()
-                                    });
+                                                     "stok='"+tbDokter.getValueAt(i,0).toString()+"'","kode_brng='"+tbDokter.getValueAt(i,1).toString()+"' and kd_bangsal='"+kdgudang.getText()+"'");                                                                           
                                 }
                             }
                         } catch (Exception e) {

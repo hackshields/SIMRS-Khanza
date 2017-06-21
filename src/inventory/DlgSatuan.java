@@ -76,7 +76,7 @@ public final class DlgSatuan extends javax.swing.JDialog {
         for (i = 0; i < 3; i++) {
             TableColumn column = tbKamar.getColumnModel().getColumn(i);
             if(i==0){
-                column.setPreferredWidth(25);
+                column.setPreferredWidth(20);
             }else if(i==1){
                 column.setPreferredWidth(110);
             }else if(i==2){
@@ -85,7 +85,7 @@ public final class DlgSatuan extends javax.swing.JDialog {
         }
         tbKamar.setDefaultRenderer(Object.class, new WarnaTable());
         
-        Kd.setDocument(new batasInput((byte)3).getKata(Kd));
+        Kd.setDocument(new batasInput((byte)4).getKata(Kd));
         Nm.setDocument(new batasInput((byte)30).getKata(Nm));
         TCari.setDocument(new batasInput((byte)100).getKata(TCari));
         if(koneksiDB.cariCepat().equals("aktif")){

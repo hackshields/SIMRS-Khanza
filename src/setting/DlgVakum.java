@@ -14,7 +14,6 @@ package setting;
 import fungsi.koneksiDB;
 import fungsi.sekuel;
 import java.sql.Connection;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -46,6 +45,7 @@ public class DlgVakum extends javax.swing.JDialog {
         internalFrame1 = new widget.InternalFrame();
         panelBiasa1 = new widget.PanelBiasa();
         BtnICD105 = new usu.widget.ButtonGlass();
+        BtnICD112 = new usu.widget.ButtonGlass();
         BtnICD86 = new usu.widget.ButtonGlass();
         BtnICD67 = new usu.widget.ButtonGlass();
         BtnICD101 = new usu.widget.ButtonGlass();
@@ -62,6 +62,7 @@ public class DlgVakum extends javax.swing.JDialog {
         BtnICD17 = new usu.widget.ButtonGlass();
         BtnICD25 = new usu.widget.ButtonGlass();
         BtnICD104 = new usu.widget.ButtonGlass();
+        BtnICD111 = new usu.widget.ButtonGlass();
         BtnICD35 = new usu.widget.ButtonGlass();
         BtnICD76 = new usu.widget.ButtonGlass();
         BtnICD2 = new usu.widget.ButtonGlass();
@@ -75,6 +76,7 @@ public class DlgVakum extends javax.swing.JDialog {
         BtnICD33 = new usu.widget.ButtonGlass();
         BtnICD90 = new usu.widget.ButtonGlass();
         BtnICD80 = new usu.widget.ButtonGlass();
+        BtnICD110 = new usu.widget.ButtonGlass();
         BtnICD9 = new usu.widget.ButtonGlass();
         BtnICD71 = new usu.widget.ButtonGlass();
         BtnICD42 = new usu.widget.ButtonGlass();
@@ -126,6 +128,7 @@ public class DlgVakum extends javax.swing.JDialog {
         BtnICD63 = new usu.widget.ButtonGlass();
         BtnICD65 = new usu.widget.ButtonGlass();
         BtnICD66 = new usu.widget.ButtonGlass();
+        BtnICD109 = new usu.widget.ButtonGlass();
         BtnICD95 = new usu.widget.ButtonGlass();
         BtnICD49 = new usu.widget.ButtonGlass();
         BtnICD51 = new usu.widget.ButtonGlass();
@@ -187,6 +190,23 @@ public class DlgVakum extends javax.swing.JDialog {
             }
         });
         panelBiasa1.add(BtnICD105);
+
+        BtnICD112.setBackground(new java.awt.Color(195, 205, 185));
+        BtnICD112.setForeground(new java.awt.Color(153, 0, 51));
+        BtnICD112.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/stop_f2.png"))); // NOI18N
+        BtnICD112.setText("Akun Piutang");
+        BtnICD112.setToolTipText("Silahkan hapus terlebih dahulu tabel yang bereferensi !!");
+        BtnICD112.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        BtnICD112.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        BtnICD112.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        BtnICD112.setName("BtnICD112"); // NOI18N
+        BtnICD112.setRoundRect(true);
+        BtnICD112.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnICD112ActionPerformed(evt);
+            }
+        });
+        panelBiasa1.add(BtnICD112);
 
         BtnICD86.setBackground(new java.awt.Color(195, 205, 185));
         BtnICD86.setForeground(new java.awt.Color(153, 0, 51));
@@ -460,6 +480,23 @@ public class DlgVakum extends javax.swing.JDialog {
         });
         panelBiasa1.add(BtnICD104);
 
+        BtnICD111.setBackground(new java.awt.Color(195, 205, 185));
+        BtnICD111.setForeground(new java.awt.Color(153, 0, 51));
+        BtnICD111.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/stop_f2.png"))); // NOI18N
+        BtnICD111.setText("INACBG Klaim Baru");
+        BtnICD111.setToolTipText("Silahkan hapus terlebih dahulu tabel yang bereferensi !!");
+        BtnICD111.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        BtnICD111.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        BtnICD111.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        BtnICD111.setName("BtnICD111"); // NOI18N
+        BtnICD111.setRoundRect(true);
+        BtnICD111.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnICD111ActionPerformed(evt);
+            }
+        });
+        panelBiasa1.add(BtnICD111);
+
         BtnICD35.setBackground(new java.awt.Color(195, 205, 185));
         BtnICD35.setForeground(new java.awt.Color(153, 0, 51));
         BtnICD35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/stop_f2.png"))); // NOI18N
@@ -680,6 +717,23 @@ public class DlgVakum extends javax.swing.JDialog {
             }
         });
         panelBiasa1.add(BtnICD80);
+
+        BtnICD110.setBackground(new java.awt.Color(195, 205, 185));
+        BtnICD110.setForeground(new java.awt.Color(153, 0, 51));
+        BtnICD110.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/stop_f2.png"))); // NOI18N
+        BtnICD110.setText("Kamar Aplicare");
+        BtnICD110.setToolTipText("Silahkan hapus terlebih dahulu tabel yang bereferensi !!");
+        BtnICD110.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        BtnICD110.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        BtnICD110.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        BtnICD110.setName("BtnICD110"); // NOI18N
+        BtnICD110.setRoundRect(true);
+        BtnICD110.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnICD110ActionPerformed(evt);
+            }
+        });
+        panelBiasa1.add(BtnICD110);
 
         BtnICD9.setBackground(new java.awt.Color(195, 205, 185));
         BtnICD9.setForeground(new java.awt.Color(153, 0, 51));
@@ -1548,6 +1602,23 @@ public class DlgVakum extends javax.swing.JDialog {
         });
         panelBiasa1.add(BtnICD66);
 
+        BtnICD109.setBackground(new java.awt.Color(195, 205, 185));
+        BtnICD109.setForeground(new java.awt.Color(153, 0, 51));
+        BtnICD109.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/stop_f2.png"))); // NOI18N
+        BtnICD109.setText("Riwayat Obat, Alkes & BHP");
+        BtnICD109.setToolTipText("Silahkan hapus terlebih dahulu tabel yang bereferensi !!");
+        BtnICD109.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        BtnICD109.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        BtnICD109.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        BtnICD109.setName("BtnICD109"); // NOI18N
+        BtnICD109.setRoundRect(true);
+        BtnICD109.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnICD109ActionPerformed(evt);
+            }
+        });
+        panelBiasa1.add(BtnICD109);
+
         BtnICD95.setBackground(new java.awt.Color(195, 205, 185));
         BtnICD95.setForeground(new java.awt.Color(153, 0, 51));
         BtnICD95.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/stop_f2.png"))); // NOI18N
@@ -2088,6 +2159,7 @@ public class DlgVakum extends javax.swing.JDialog {
         hapus("Bayar Piutang Pasien","lain","bayar_piutang");
         hapus("DPJP Ranap","lain","dpjp_ranap");
         hapus("Nota Rawat Jalan","lain","nota_jalan");
+        hapus("Detail Piutang Pasien","lain","detail_piutang_pasien");
         hapus("Nota Rawat Inap","lain","nota_inap");
         hapus("Registrasi","Rawat Jalan,\nKamar Inap, Diagnosa Pasien, Tagihan Masuk, Pemberian Obat, Resep Obat, Rujukan Masuk,\n"+
                 "Rujukan Keluar, Stok Obat Pasien, Diagnosa Pasien, Resep Pulang, Potongan Biaya, Tambahan Biaya,\nDPJP Ranap, Diet Pasien","reg_periksa");
@@ -2169,6 +2241,7 @@ public class DlgVakum extends javax.swing.JDialog {
     }//GEN-LAST:event_BtnICD21ActionPerformed
 
     private void BtnICD22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnICD22ActionPerformed
+        hapus("Detail Piutang Pasien","lain","detail_piutang_pasien");
         hapus("Piutang Pasien","lain","piutang_pasien");
         hapus("Bayar Piutang Pasien","lain","bayar_piutang");
     }//GEN-LAST:event_BtnICD22ActionPerformed
@@ -2464,7 +2537,8 @@ public class DlgVakum extends javax.swing.JDialog {
         hapus("Gudang Barang","lain","gudangbarang");    
         hapus("Stok Opname","lain","opname");                
         hapus("Set Lokasi Obat","lain","set_lokasi");
-        hapus("Mutasi Barang","lain","mutasibarang");        
+        hapus("Mutasi Barang","lain","mutasibarang");   
+        hapus("Riwayat Obat, Alkes & BHP","lain","riwayat_barang_medis");        
         hapus("Bangsal","Kamar, Gudang Barang,\nStok Opname, Set Lokasi Obat, Mutasi Barang","bangsal");
     }//GEN-LAST:event_BtnICD80ActionPerformed
 
@@ -2490,6 +2564,9 @@ public class DlgVakum extends javax.swing.JDialog {
     }//GEN-LAST:event_BtnICD85ActionPerformed
 
     private void BtnICD86ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnICD86ActionPerformed
+        hapus("Akun Piutang","Jurnal Akuntansi","akun_piutang");
+        hapus("Rekening Tahun","Jurnal Akuntansi","rekeningtahun");        
+        hapus("Subrekening","Lain","subrekening");
         hapus("Akun Rekening","Rekening Tahun","rekening");
     }//GEN-LAST:event_BtnICD86ActionPerformed
 
@@ -2502,6 +2579,9 @@ public class DlgVakum extends javax.swing.JDialog {
     }//GEN-LAST:event_BtnICD88ActionPerformed
 
     private void BtnICD89ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnICD89ActionPerformed
+        hapus("Nota Rawat Jalan","lain","nota_jalan");
+        hapus("Detail Nota Rawat Jalan","lain","detail_nota_jalan");
+        hapus("Nota Rawat Inap","lain","nota_inap");
         hapus("Tagihan Masuk","lain","billing");
         hapus("Tagihan Masuk","lain","tagihan_sadewa");
     }//GEN-LAST:event_BtnICD89ActionPerformed
@@ -2582,6 +2662,22 @@ public class DlgVakum extends javax.swing.JDialog {
         hapus("Bridging SEP","lain","bridging_sep"); 
     }//GEN-LAST:event_BtnICD108ActionPerformed
 
+    private void BtnICD109ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnICD109ActionPerformed
+        hapus("Riwayat Obat, Alkes & BHP","lain","riwayat_barang_medis"); 
+    }//GEN-LAST:event_BtnICD109ActionPerformed
+
+    private void BtnICD110ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnICD110ActionPerformed
+        hapus("Ketersediaan Kamar Aplicare","lain","aplicare_ketersediaan_kamar");
+    }//GEN-LAST:event_BtnICD110ActionPerformed
+
+    private void BtnICD111ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnICD111ActionPerformed
+        hapus("INACBG Klaim Baru","lain","inacbg_klaim_baru");
+    }//GEN-LAST:event_BtnICD111ActionPerformed
+
+    private void BtnICD112ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnICD112ActionPerformed
+        hapus("Akun Piutang","lain","akun_piutang");
+    }//GEN-LAST:event_BtnICD112ActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -2611,7 +2707,11 @@ public class DlgVakum extends javax.swing.JDialog {
     private usu.widget.ButtonGlass BtnICD106;
     private usu.widget.ButtonGlass BtnICD107;
     private usu.widget.ButtonGlass BtnICD108;
+    private usu.widget.ButtonGlass BtnICD109;
     private usu.widget.ButtonGlass BtnICD11;
+    private usu.widget.ButtonGlass BtnICD110;
+    private usu.widget.ButtonGlass BtnICD111;
+    private usu.widget.ButtonGlass BtnICD112;
     private usu.widget.ButtonGlass BtnICD12;
     private usu.widget.ButtonGlass BtnICD13;
     private usu.widget.ButtonGlass BtnICD14;
